@@ -1,0 +1,57 @@
+[
+    {
+        "Student ID": "S1001",
+        "First Name": "John",
+        "Last Name": "Doe",
+        "Age": 16,
+        "Grade Level": 11,
+        "Courses Enrolled": "Math, Science, History",
+        "GPA": 3.5,
+        "Email Address": "john.doe@example.com",
+        "Enrollment Date": "2022-09-01"
+    },
+    {
+        "Student ID": "S1002",
+        "First Name": "Emma",
+        "Last Name": "Smith",
+        "Age": 15,
+        "Grade Level": 10,
+        "Courses Enrolled": "English, Math, Arts",
+        "GPA": 3.8,
+        "Email Address": "emma.smith@example.com",
+        "Enrollment Date": "2022-09-01"
+    },
+    {
+        "Student ID": "S1003",
+        "First Name": "Alex",
+        "Last Name": "Johnson",
+        "Age": 17,
+        "Grade Level": 12,
+        "Courses Enrolled": "Science, History, PE",
+        "GPA": 3.2,
+        "Email Address": "alex.johnson@example.com",
+        "Enrollment Date": "2021-09-01"
+    },
+    {
+        "Student ID": "S1004",
+        "First Name": "Olivia",
+        "Last Name": "Brown",
+        "Age": 16,
+        "Grade Level": 11,
+        "Courses Enrolled": "Math, English, Computer Science",
+        "GPA": 3.9,
+        "Email Address": "olivia.brown@example.com",
+        "Enrollment Date": "2022-09-01"
+    },
+    {
+        "Student ID": "S1005",
+        "First Name": "Liam",
+        "Last Name": "Wilson",
+        "Age": 15,
+        "Grade Level": 10,
+        "Courses Enrolled": "History, Math, Geography",
+        "GPA": 3.6,
+        "Email Address": "liam.wilson@example.com",
+        "Enrollment Date": "2022-09-01"
+    }
+]

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+
+<body>
+    <div id="chartsContainer" style="display: flex; flex-direction: column; align-items: center;">
+        <div id="myPieChart" style="width:100%; max-width:600px; height:500px;"></div>
+        <div id="myBarChart" style="width:100%; max-width:600px; height:500px;"></div>
+        <div id="myScatterChart" style="width:100%; max-width:600px; height:500px;"></div>
+        <div id="myLineChart" style="width:100%; max-width:600px; height:500px;"></div>
+        <div id="myColumnChart" style="width:100%; max-width:600px; height:500px;"></div>
+    </div>
+
+    <script>
+        google.charts.load('current', { 'packages': ['corechart', 'scatter', 'line'] });
+        google.charts.setOnLoadCallback(fetchData);
+
+        function fetchData() {
+            // Load the JSON data from output.json
+            fetch('output.json')
+                .then(response => response.json())
+                .then(students => {
+                    drawPieChart(students);
+                    drawBarChart(students);
+                    drawScatterChart(students);
+                    drawLineChart(students);
+                    drawColumnChart(students);
+                })
+                .catch(error => console.error('Error loading the JSON file:', error));
+        }
+
+        function drawPieChart(students) {
+            // Prepare the data for the pie chart
+            const ageGradeData = {};
+            students.forEach(student => {
+                const ageGradeKey = `${student.Age} years old, Grade ${student['Grade Level']}`;
+                ageGradeData[ageGradeKey] = (ageGradeData[ageGradeKey] || 0) + 1;
+            });
+
+            // Convert the data into a format suitable for Google Charts
+            const pieDataArray = [['Age and Grade', 'Number of Students']];
+            for (const key in ageGradeData) {
+                pieDataArray.push([key, ageGradeData[key]]);
+            }
+            const pieData = google.visualization.arrayToDataTable(pieDataArray);
+
+            // Set Options
+            const pieOptions = {
+                title: 'Distribution of Students by Age and Grade Level',
+                is3D: true
+            };
+
+            // Draw the pie chart
+            const pieChart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+            pieChart.draw(pieData, pieOptions);
+        }
+
+        function drawBarChart(students) {
+            // Prepare data for Bar Chart based on Grade Level
+            const gradeData = {};
+            students.forEach(student => {
+                const gradeKey = `Grade ${student['Grade Level']}`;
+                gradeData[gradeKey] = (gradeData[gradeKey] || 0) + 1;
+            });
+
+            const barDataArray = [['Grade Level', 'Number of Students']];
+            for (const key in gradeData) {
+                barDataArray.push([key, gradeData[key]]);
+            }
+            const barData = google.visualization.arrayToDataTable(barDataArray);
+
+            // Set Options
+            const barOptions = {
+                title: 'Number of Students by Grade Level',
+                legend: { position: 'none' }
+            };
+
+            // Draw the bar chart
+            const barChart = new google.visualization.BarChart(document.getElementById('myBarChart'));
+            barChart.draw(barData, barOptions);
+        }
+
+        function drawScatterChart(students) {
+            // Prepare data for Scatter Chart: GPA vs. Age
+            const scatterDataArray = [['Age', 'GPA']];
+            students.forEach(student => {
+                scatterDataArray.push([student.Age, student.GPA]);
+            });
+            const scatterData = google.visualization.arrayToDataTable(scatterDataArray);
+
+            // Set Options
+            const scatterOptions = {
+                title: 'GPA vs. Age',
+                hAxis: { title: 'Age' },
+                vAxis: { title: 'GPA' },
+                legend: 'none'
+            };
+
+            // Draw the scatter chart
+            const scatterChart = new google.visualization.ScatterChart(document.getElementById('myScatterChart'));
+            scatterChart.draw(scatterData, scatterOptions);
+        }
+
+        function drawLineChart(students) {
+            // Prepare data for Line Chart: GPA over Enrollment Date
+            const lineDataArray = [['Enrollment Date', 'GPA']];
+            students.forEach(student => {
+                lineDataArray.push([new Date(student['Enrollment Date']), student.GPA]);
+            });
+            const lineData = google.visualization.arrayToDataTable(lineDataArray);
+
+            // Set Options
+            const lineOptions = {
+                title: 'GPA Over Enrollment Date',
+                hAxis: { title: 'Enrollment Date' },
+                vAxis: { title: 'GPA' },
+                legend: 'none'
+            };
+
+            // Draw the line chart
+            const lineChart = new google.visualization.LineChart(document.getElementById('myLineChart'));
+            lineChart.draw(lineData, lineOptions);
+        }
+
+        function drawColumnChart(students) {
+            // Prepare data for Column Chart: Number of Students by Age
+            const ageData = {};
+            students.forEach(student => {
+                ageData[student.Age] = (ageData[student.Age] || 0) + 1;
+            });
+
+            const columnDataArray = [['Age', 'Number of Students']];
+            for (const key in ageData) {
+                columnDataArray.push([key, ageData[key]]);
+            }
+            const columnData = google.visualization.arrayToDataTable(columnDataArray);
+
+            // Set Options
+            const columnOptions = {
+                title: 'Number of Students by Age',
+                legend: { position: 'none' }
+            };
+
+            // Draw the column chart
+            const columnChart = new google.visualization.ColumnChart(document.getElementById('myColumnChart'));
+            columnChart.draw(columnData, columnOptions);
+        }
+    </script>
+
+</body>
+</html>
